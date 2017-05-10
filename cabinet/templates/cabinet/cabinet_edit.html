@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+
+{% block title %}Личный кабинет{% endblock %}
+
+{% block content %}
+{% load staticfiles %}
+<div class="container">
+    <ol class="breadcrumb">
+        <li><a href="{% url 'main' %}">Главная</a></li>
+        <li><a href="{% url 'cabinet:view_cabinet' user.id %}">Личный кабинет</a></li>
+        <li class="active">Редактирование профиля</li>
+    </ol>
+    <div class="page-header">
+        <h3>Редактирование профиля {{ user.username }}</h3>
+    </div>
+    {% if user.is_authenticated %}
+        <form id="user_form" method="post" action="{% url 'cabinet:edit_profile' user.id %}" enctype="multipart/form-data">
+            <div class="form-group row">
+                <div class="col-md-6">
+                    {% csrf_token %}
+                    {% if user_form.non_field_errors %}
+                        <div class="alert alert-warning" role="alert">
+                                    <p>{{ user_form.non_field_errors }}</p>
+                                </div>
+                    {% endif %}
+                    <label for="user_name">Имя пользователя</label>
+                    {% if show_unique_username_error %}
+                        <div class="alert alert-warning" role="alert">
+                            <p>{{ user_form.username.errors }}</p>
+                        </div>
+                    {% endif %}
+                    <!--TODO: Form doesn't show error for username field. For example, when it's empty. Only unique
+                     error is shown.-->
+
+                    <input type="text" name="username" value="{{ user_form.username.value }}" size="50"
+                           class="form-control" id="user_name"/>
+                    {% if user_form.email.errors %}
+                        <div class="alert alert-warning" role="alert">
+                            <p>{{ user_form.email.errors }}</p>
+                        </div>
+                    {% endif %}
+                    <label for="user_email">E-mail</label>
+                    <input type="text" name="email" value="{{ user_form.email.value }}" size="50"
+                           class="form-control" id="user_email"/>
+                    {{ profile_form }}
+                    <!-- Provide a button to click to submit the form. -->
+                    <input type="submit" name="submit" value="Сохранить" class="btn btn-default"/>
+                </div>
+        </form>
+    {% endif %}
+</div>
+{% endblock %}

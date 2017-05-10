@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+
+{% block title %}Войти на сайт{% endblock %}
+
+{% block navigation %}
+<div class="navbar-collapse collapse">
+    <ul class="nav navbar-nav navbar-right">
+      <li class="nav"><a href="{% url 'register' %}">Регистрация</a></li>
+      <li class="nav active"><a href="#">Войти</a></li>
+    </ul>
+</div>
+{% endblock %}
+
+{% block section_title %}
+{% endblock section_title %}
+
+{% block content %}
+<div class="container">
+    <div class="page-header">
+        <h3>Войти на сайт</h3>
+    </div>
+    {% if wrong_details %}
+        <div class="alert alert-warning" role="alert">
+            <p style="color:red">Введённые логин или пароль неправильны. Попробуйте еще раз.</p>
+        </div>
+    {% endif %}
+    <form id="login_form" method="post" action="{% url 'login' %}">
+        <div class="form-group row">
+            <div class="col-md-6">
+                {% csrf_token %}
+                <label for="user_name">Имя пользователя</label>
+                <input type="text" name="username" value="" size="50" class="form-control" id="user_name"
+                       placeholder="Ваше имя"/>
+                <label for="user_password">Пароль</label>
+                <input type="password" name="password" value="" size="50" class="form-control" id="user_password"
+                         placeholder="Ваш пароль"/>
+                <input type="submit" value="Войти" class="btn btn-default"/>
+            </div>
+        </div>
+    </form>
+</div>
+{% endblock %}

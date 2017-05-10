@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+
+{% block title %}Регистрация{% endblock %}
+
+{% block navigation %}
+<div class="navbar-collapse collapse">
+    <ul class="nav navbar-nav navbar-right">
+      <li class="nav active"><a href="#">Регистрация</a></li>
+      <li class="nav"><a href="{% url 'login' %}">Войти</a></li>
+    </ul>
+</div>
+{% endblock %}
+
+{% block section_title %}
+{% endblock section_title %}
+
+{% block content %}
+<div class="container">
+    <div class="page-header">
+        <h3>Регистрация</h3>
+    </div>
+    {% if registered %}
+        <div class="alert alert-success" role="alert">
+            <p>Спасибо за регистрацию!</p>
+        </div>
+    {% else %}
+        <form id="user_form" method="post" action="{% url 'register' %}"
+            enctype="multipart/form-data">
+            <div class="form-group row">
+                <div class="col-md-6">
+                    {% csrf_token %}
+                    {% if user_form.non_field_errors %}
+                        <div class="alert alert-warning" role="alert">
+                            <p>{{ user_form.non_field_errors }}</p>
+                        </div>
+                    {% endif %}
+                    {% if user_form.username.errors %}
+                        <div class="alert alert-warning" role="alert">
+                            <p>{{ user_form.username.errors }}</p>
+                        </div>
+                    {% endif %}
+                    <label for="user_name">Имя пользователя</label>
+                    <input type="text" name="username" value="" size="50" class="form-control" id="user_name"
+                       placeholder="Введите имя"/>
+                    {% if user_form.email.errors %}
+                        <div class="alert alert-warning" role="alert">
+                            <p>{{ user_form.email.errors }}</p>
+                        </div>
+                    {% endif %}
+                    <label for="user_email">E-mail</label>
+                    <input type="text" name="email" value="" size="50" class="form-control" id="user_email"
+                       placeholder="Введите e-mail"/>
+                    {% if user_form.email.errors %}
+                        <div class="alert alert-warning" role="alert">
+                            <p>{{ user_form.password.errors }}</p>
+                        </div>
+                    {% endif %}
+                    <label for="user_password">Пароль</label>
+                    <input type="password" name="password" value="" size="50" class="form-control" id="user_password"
+                       placeholder="Введите пароль"/>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-md-6">
+                    {% csrf_token %}
+                    {{ profile_form.picture }}
+                </div>
+            </div>
+            <!-- Provide a button to click to submit the form. -->
+            <input type="submit" name="submit" value="Зарегистрироваться" class="btn btn-default"/>
+        </form>
+    {% endif %}
+</div>
+{% endblock %}

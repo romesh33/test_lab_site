@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% block title %}Задания{% endblock %}
+
+{% block content %}
+<div class="container">
+	<ol class="breadcrumb">
+        <li><a href="{% url 'main' %}">Главная</a></li>
+        <li class="active">Задания</li>
+    </ol>
+    <div class="page-header">
+        <h3>Задания</h3>
+    </div>
+	{% if tasks_list %}
+		<ul>Задания:
+		{% for task in tasks_list %}
+			<li><a href="{% url 'tasks:task' task.id %}">{{ task.title }}</a></li>
+		{% endfor %}
+		</ul>
+		{% else %}
+			<p>No tasks are available.</p>
+	{% endif %}
+</div>
+{% endblock %}

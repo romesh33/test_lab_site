@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block title %}Контакты{% endblock %}
+
+{% block navigation %}
+          <nav>
+            <ul class="nav nav-pills pull-right">
+                <li role="presentation"><a href="{% url 'main' %}">Главная</a></li>
+			    <li role="presentation"><a href="{% url 'events' %}">События</a></li>
+                <li role="presentation" class="active"><a href="#">Контакты</a></li>
+			    {% if user.is_authenticated %}
+				    <li role="presentation"><a href="{% url 'logout' %}">Выйти</a></li>
+			    {% else %}
+				<li role="presentation"><a href="{% url 'register' %}">Регистрация</a></li>
+				<li role="presentation"><a href="{% url 'login' %}">Войти</a></li>
+			{% endif %}
+            </ul>
+          </nav>
+{% endblock %}
+
+{% block content %}
+          Здесь будут контакты.
+{% endblock %}

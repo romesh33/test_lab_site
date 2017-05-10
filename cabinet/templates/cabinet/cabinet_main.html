@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block title %}Личный кабинет{% endblock %}
+
+{% block content %}
+{% load staticfiles %}
+<div class="container">
+    <ol class="breadcrumb">
+        <li><a href="{% url 'main' %}">Главная</a></li>
+        <li class="active">Личный кабинет</li>
+    </ol>
+    <div class="page-header">
+        <h3>Личный кабинет {{ user.username }}</h3>
+    </div>
+    {% if user.is_authenticated %}
+        Имя пользователя: {{ user.username }}<br>
+        {% if userprofile != 0 %}
+            {% if userprofile.picture != 0 %}
+                <div class="row">
+                    <img class="thumbnail img-responsive col-md-6" src="{{ userprofile.picture|cut:'test_lab_site' }}">
+                </div>
+            {% else %}
+                <b>У пользователя нет картинки профиля.</b>
+            {% endif %}
+        {% else %}
+            Профиль пользователя не создан.<br>
+        {% endif %}
+        <br>
+        <a href="{% url 'cabinet:edit_profile' user.id %}">Редактировать профиль пользователя</a>
+    {% endif %}
+</div>
+{% endblock %}

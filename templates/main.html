@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+
+{% block title %}Test Me - Главная страница{% endblock %}
+
+{% load static from staticfiles %}
+{% block logo %}
+<div class="navbar-brand">
+<a href="#">
+    SQA DAYS-21 TEST LAB SITE
+  <!--<img src="{% static "img/logo_0205_extra_small.png" %}">-->
+</a>
+</div>
+{% endblock logo %}
+
+{% block section_title %}
+{% endblock section_title %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-md-4">
+            {% if user.is_authenticated %}
+                <div id="welcoming-text" class="alert alert-success" role="alert">Вы вошли как <a href="{% url 'cabinet:view_cabinet' user.id %}">
+                    {{ user.username }}</a>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+    <ol class="breadcrumb">
+        <li class="active">Главная</li>
+    </ol>
+    <div class="page-header">
+        <h3>Доступные задания в рамках тестовой лаборатории</h3>
+    </div>
+    {% if next_events_list %}
+        <table class="table">
+            <th>Событие</th>
+            <th>Время</th>
+            <th>Макс число участников</th>
+            <th>Число зарег участников</th>
+            <th>Кнопки 1</th>
+            <th>Кнопки 2</th>
+                {% for event in next_events_list %}
+                    <tr>
+                        <td><a href="{% url 'events:event' event.id %}">{{ event.event_name }}</a></td>
+                        <td>{{ event.start_time }} - {{ event.end_time }}</td>
+                        <td>{{ event.max_participants_number }}</td>
+                        <td>{{ event.current_participants_number }}</td>
+                        <td>
+                            {% if user.is_authenticated %}
+                                {% if event not in registered_event_list %}
+                                    <a href="{% url 'events:add_participant' event.id %}">Участвовать</a>
+                                {% else %}
+                                    <a href="{% url 'events:delete_participant' event.id %}">Не участвовать</a>
+                                {% endif %}
+                            {% else %}
+                                    <a href="{% url 'events:add_participant' event.id %}">Участвовать</a>
+                            {% endif %}
+                        </td>
+                        <td><a href="#">Следить</a></td>
+                    </tr>
+                {% endfor %}
+        </table>
+    {% else %}
+        <p>В настоящее время нет активных заданий. Обратитесь к администратору для активации заданий.</p>
+    {% endif %}
+</div>
+{% endblock %}
+
+

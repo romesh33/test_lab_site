@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% load staticfiles %}
+{% block custom_static %}
+    <!-- Custom styles for this template -->
+    <link href="{% static "css/jumbotron-narrow.css" %}" rel="stylesheet">
+    <link href="{% static "css/event_styles.css" %}" rel="stylesheet">
+
+    <script src='{% static "js/react.js" %}'></script>
+    <script src='{% static "js/react-dom.js" %}'></script>
+    <!--<script src='{% static "js/require.js" %}'></script>-->
+    <!--<script src='https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.24/browser.js'></script>-->
+    <script src='{% static "js/browser_babel.js" %}'></script>
+{% endblock custom_static %}
+
+{% block title %}{{ task.title }}{% endblock %}
+
+{% block content %}
+<div class="container">
+    <ol class="breadcrumb">
+        <li><a href="{% url 'main' %}">Главная</a></li>
+        <li><a href="{% url 'tasks:tasks' %}">Задания</a></li>
+        <li class="active">{{ task.title }}</li>
+    </ol>
+    <div class="page-header">
+            <h3>{{ task.title }}</h3>
+        </div>
+    <div class="well">
+        {{ task.description }}
+    </div>
+
+</div>
+{% endblock %}
