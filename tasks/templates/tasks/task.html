@@ -20,8 +20,28 @@
     <ol class="breadcrumb">
         <li><a href="{% url 'main' %}">Главная</a></li>
         <li><a href="{% url 'tasks:tasks' %}">Задания</a></li>
+        <li><a href="{% url 'tasks:theme_tasks' task.task_theme %}">{{ task.task_theme }}</a></li>
         <li class="active">{{ task.title }}</li>
     </ol>
+    {% if user.is_authenticated %}
+        {% if status.state == "RUNNING" %}
+            Прошло времени: {{ status.duration }}<br>
+            <a href="{% url 'tasks:stop' task.id %}">Остановить</a>
+            <a href="{% url 'tasks:finish' task.id %}">Завершить</a>
+        {% elif status.state == "IDLE" %}
+            Прошло времени: {{ status.duration }}<br>
+            <a href="{% url 'tasks:start' task.id %}">Начать</a><br>
+        {% elif status.state == "STOPPED" %}
+            Прошло времени: {{ status.duration }}<br>
+            <a href="{% url 'tasks:come_back' task.id %}">Вернуться</a><br>
+            <a href="{% url 'tasks:finish' task.id %}">Завершить</a>
+        {% elif status.state == "FINISHED" %}
+            Прошло времени: {{ status.duration }}<br>
+            Поздравляем, вы завершили задание! Вам открылись задания: TBD.
+        {% endif %}
+    {% else %}
+        <p>Вы должны авторизоваться перед тем, как начать задачу.</p>
+    {% endif %}
     <div class="page-header">
             <h3>{{ task.title }}</h3>
         </div>

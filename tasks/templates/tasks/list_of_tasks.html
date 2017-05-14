@@ -6,19 +6,35 @@
 <div class="container">
 	<ol class="breadcrumb">
         <li><a href="{% url 'main' %}">Главная</a></li>
-        <li class="active">Задания</li>
+        <li><a href="{% url 'tasks:tasks' %}">Задания</a></li>
+		<li class="active">{{ theme }}</li>
     </ol>
-    <div class="page-header">
-        <h3>Задания</h3>
-    </div>
-	{% if tasks_list %}
-		<ul>Задания:
-		{% for task in tasks_list %}
-			<li><a href="{% url 'tasks:task' task.id %}">{{ task.title }}</a></li>
-		{% endfor %}
-		</ul>
+    {% if theme %}
+		<div class="page-header">
+        	<h3>Задания по теме {{ theme }}</h3>
+    	</div>
+		{% if tasks_list %}
+			<ul>Задания:
+			{% for task in tasks_list %}
+				<li><a href="{% url 'tasks:task' task.id %}">{{ task.title }}</a></li>
+			{% endfor %}
+			</ul>
 		{% else %}
-			<p>No tasks are available.</p>
+			<p>Нет задач по теме {{ theme }}.</p>
+		{% endif %}
+	{% else %}
+		<div class="page-header">
+        	<h3>Задания</h3>
+    	</div>
+		{% if tasks_list %}
+			<ul>Задания:
+			{% for task in tasks_list %}
+				<li><a href="{% url 'tasks:task' task.id %}">{{ task.title }}</a></li>
+			{% endfor %}
+			</ul>
+		{% else %}
+			<p>Нет задач в списке.</p>
+		{% endif %}
 	{% endif %}
 </div>
 {% endblock %}

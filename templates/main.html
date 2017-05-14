@@ -30,40 +30,83 @@
         <li class="active">Главная</li>
     </ol>
     <div class="page-header">
-        <h3>Доступные задания в рамках тестовой лаборатории</h3>
+        <h3>Расписание тестовой лаборатории</h3>
     </div>
-    {% if next_events_list %}
-        <table class="table">
-            <th>Событие</th>
-            <th>Время</th>
-            <th>Макс число участников</th>
-            <th>Число зарег участников</th>
-            <th>Кнопки 1</th>
-            <th>Кнопки 2</th>
-                {% for event in next_events_list %}
-                    <tr>
-                        <td><a href="{% url 'events:event' event.id %}">{{ event.event_name }}</a></td>
-                        <td>{{ event.start_time }} - {{ event.end_time }}</td>
-                        <td>{{ event.max_participants_number }}</td>
-                        <td>{{ event.current_participants_number }}</td>
-                        <td>
-                            {% if user.is_authenticated %}
-                                {% if event not in registered_event_list %}
-                                    <a href="{% url 'events:add_participant' event.id %}">Участвовать</a>
-                                {% else %}
-                                    <a href="{% url 'events:delete_participant' event.id %}">Не участвовать</a>
-                                {% endif %}
-                            {% else %}
-                                    <a href="{% url 'events:add_participant' event.id %}">Участвовать</a>
-                            {% endif %}
-                        </td>
-                        <td><a href="#">Следить</a></td>
-                    </tr>
-                {% endfor %}
-        </table>
-    {% else %}
-        <p>В настоящее время нет активных заданий. Обратитесь к администратору для активации заданий.</p>
-    {% endif %}
+    <div class="row">
+        <b>26 мая</b>
+        </div>
+    <div class="row">
+        <div class="col-xs-6 col-md-3">
+            10:00 - 12:00
+            {% with theme="API" %}
+                <a href="{% url 'tasks:theme_tasks' theme %}" class="thumbnail">
+                    <img src="{% static "img/api.png" %}">
+                </a>
+            {% endwith %}
+        </div>
+        <div class="col-xs-6 col-md-3">
+            12:00 - 14:00
+            {% with theme="IOT" %}
+            <a href="{% url 'tasks:theme_tasks' theme %}" class="thumbnail">
+                <img src="{% static "img/iot.png" %}">
+            </a>
+            {% endwith %}
+        </div>
+        <div class="col-xs-6 col-md-3">
+            14:00 - 16:00
+            {% with theme="ET" %}
+            <a href="{% url 'tasks:theme_tasks' theme %}" class="thumbnail">
+                <img src="{% static "img/et.png" %}">
+            </a>
+            {% endwith %}
+        </div>
+        <div class="col-xs-6 col-md-3">
+            16:00 - 18:00
+            {% with theme="games" %}
+            <a href="{% url 'tasks:theme_tasks' theme %}" class="thumbnail">
+                <img src="{% static "img/games.png" %}">
+            </a>
+            {% endwith %}
+        </div>
+    </div>
+    <div class="row">
+        <b>27 мая</b>
+        </div>
+    <div class="row">
+        <div class="col-xs-6 col-md-3">
+            10:00 - 12:00
+            {% with theme="API" %}
+                <a href="{% url 'tasks:theme_tasks' theme %}" class="thumbnail">
+                    <img src="{% static "img/api.png" %}">
+                </a>
+            {% endwith %}
+        </div>
+        <div class="col-xs-6 col-md-3">
+            12:00 - 14:00
+            {% with theme="IOT" %}
+            <a href="{% url 'tasks:theme_tasks' theme %}" class="thumbnail">
+                <img src="{% static "img/iot.png" %}">
+            </a>
+            {% endwith %}
+        </div>
+        <div class="col-xs-6 col-md-3">
+            14:00 - 16:00
+            {% with theme="ET" %}
+            <a href="{% url 'tasks:theme_tasks' theme %}" class="thumbnail">
+                <img src="{% static "img/et.png" %}">
+            </a>
+            {% endwith %}
+        </div>
+        <div class="col-xs-6 col-md-3">
+            16:00 - 18:00
+            {% with theme="games" %}
+            <a href="{% url 'tasks:theme_tasks' theme %}" class="thumbnail">
+                <img src="{% static "img/games.png" %}">
+            </a>
+            {% endwith %}
+        </div>
+    </div>
+</div>
 </div>
 {% endblock %}
 

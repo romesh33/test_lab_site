@@ -102,6 +102,7 @@ def user_login(request):
 
     # If the request is a HTTP POST, try to pull out the relevant information.
     if request.method == 'POST':
+        print("This is POST request")
         # Gather the username and password provided by the user.
         # This information is obtained from the login form.
         username = request.POST['username']
@@ -120,20 +121,24 @@ def user_login(request):
                 # If the account is valid and active, we can log the user in.
                 # We'll send the user back to the homepage.
                 login(request, user)
-                return HttpResponseRedirect(reverse('main'))
+                redirect_to = request.POST.get(next, '')
+                return HttpResponseRedirect(redirect_to)
+                #return HttpResponseRedirect(request.next)
             else:
                 # An inactive account was used - no logging in!
                 return HttpResponse("Your account is disabled.")
         else:
             # Bad login details were provided. So we can't log the user in.
             return render(request, 'login.html', {'wrong_details': True})
-
     # The request is not a HTTP POST, so display the login form.
     # This scenario would most likely be a HTTP GET.
     else:
+        print("This is GET request")
+        redirect_url = request.GET.get(next, 'main')
+        print("redirect_url:" + redirect_url)
         # No context variables to pass to the template system, hence the
         # blank dictionary object...
-        return render(request, 'login.html', {'wrong_details': False})
+        return render(request, 'login.html', {'wrong_details': False, 'redirect_url': redirect_url})
 
 
 # Use the login_required() decorator to ensure only those logged in can access the view.
