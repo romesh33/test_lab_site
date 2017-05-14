@@ -1,7 +1,7 @@
 from django.http import HttpResponse
 from django.http import Http404
 from django.template import loader
-from django.shortcuts import get_object_or_404, render
+from django.shortcuts import get_object_or_404, render, render_to_response
 
 from django.template import RequestContext
 from django.core.urlresolvers import reverse
@@ -97,9 +97,6 @@ def register(request):
 
 
 def user_login(request):
-    # Like before, obtain the context for the user's request.
-    context = RequestContext(request)
-
     # If the request is a HTTP POST, try to pull out the relevant information.
     if request.method == 'POST':
         print("This is POST request")
@@ -121,24 +118,23 @@ def user_login(request):
                 # If the account is valid and active, we can log the user in.
                 # We'll send the user back to the homepage.
                 login(request, user)
-                redirect_to = request.POST.get(next, '')
-                return HttpResponseRedirect(redirect_to)
-                #return HttpResponseRedirect(request.next)
+                print(request.POST.get('next', reverse('main')))
+                if request.POST.get('next') == '' or not request.POST.get('next'):
+                    return HttpResponseRedirect(reverse('main'))
+                else:
+                    return HttpResponseRedirect(request.POST.get('next'))
             else:
                 # An inactive account was used - no logging in!
                 return HttpResponse("Your account is disabled.")
         else:
             # Bad login details were provided. So we can't log the user in.
-            return render(request, 'login.html', {'wrong_details': True})
+            return render(request, 'login.html', {'wrong_details': True, 'next': request.GET.get('next', '')})
     # The request is not a HTTP POST, so display the login form.
     # This scenario would most likely be a HTTP GET.
     else:
-        print("This is GET request")
-        redirect_url = request.GET.get(next, 'main')
-        print("redirect_url:" + redirect_url)
         # No context variables to pass to the template system, hence the
         # blank dictionary object...
-        return render(request, 'login.html', {'wrong_details': False, 'redirect_url': redirect_url})
+        return render(request, 'login.html', {'wrong_details': False, 'next': request.GET.get('next', '')})
 
 
 # Use the login_required() decorator to ensure only those logged in can access the view.
