@@ -18,14 +18,15 @@ class Task(models.Model):
                                       default='API')
 
     def __str__(self):
-        return self.title
+        return self.code + ": " + self.title
 
 class TaskRelation(models.Model):
     dependant_task = models.ForeignKey(Task, related_name="dependant_task")
-    linked_tasks = models.ManyToManyField(Task, related_name="linked_tasks")
+    linked_task = models.ForeignKey(Task, related_name="linked_task", null=True)
 
     def __str__(self):
-        return 'Связь между задачами'
+        return self.linked_task.code + ": " + self.linked_task.title + " -> " + self.dependant_task.code + ": " + self.dependant_task.title
+        #return self.dependant_task.code + ": " + self.dependant_task.title
 
 
 class Status(models.Model):

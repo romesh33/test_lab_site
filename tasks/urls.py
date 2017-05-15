@@ -13,6 +13,8 @@ urlpatterns = [
     url(r'^theme/(?P<theme>[^0-9]+)/$', views.theme_tasks, name='theme_tasks'),
     # ex: /10
     url(r'^(?P<pk>[0-9]+)/$', login_required(TaskDetailView.as_view()), name='task'),
+    # ex: /API-01:
+    url(r'^(?P<code>([^0-9]+)-([0-9]+))/$', views.task_by_code, name='task_by_code'),
     # ex: /10/start
     url(r'^(?P<task_id>[0-9]+)/start$', views.start, name='start'),
     # ex: /10/stop

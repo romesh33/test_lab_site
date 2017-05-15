@@ -11,7 +11,7 @@ from django.core.exceptions import MultipleObjectsReturned
 from django.contrib.auth.decorators import login_required
 from django.views.generic import DetailView
 from django.views.generic.edit import UpdateView
-from .models import Task, Status
+from .models import Task, Status, TaskRelation
 from django.contrib.auth.models import User
 
 
@@ -122,15 +122,53 @@ def finish(request, task_id):
     return HttpResponseRedirect(reverse('tasks:task', args=(task_id,)))
 
 
+@login_required()
+def task_by_code(request, code):
+    try:
+        task = Task.objects.get(code=code)
+    except ObjectDoesNotExist:
+        print("Task with such code doesn't exist")
+        return HttpResponseRedirect(reverse('tasks:tasks'))
+    except MultipleObjectsReturned:
+        print("More than one task exists with such code")
+        return HttpResponseRedirect(reverse('tasks:tasks'))
+    return HttpResponseRedirect(reverse('tasks:task', args=(task.id,)))
+
+
 class TaskDetailView(DetailView):
     model = Task
-    template_name = 'tasks/task.html'
+    #template_name = 'tasks/task.html'
+    template_name = 'tasks/'
     def get_context_data(self, **kwargs):
         # Call the base implementation first to get a context
         context = super(TaskDetailView, self).get_context_data(**kwargs)
         task = Task.objects.get(pk=self.object.pk)
-        context['task'] = task
         user = self.request.user
+        # проверяем, есть ли связанные задачи:
+        try:
+            relation = TaskRelation.objects.get(dependant_task=task)
+            linked_task = relation.linked_task
+            context['linked_task'] = linked_task
+            try:
+                status = Status.objects.get(task=linked_task, user=user)
+                if status.state == 'FINISHED':
+                    context['linked_task_finished'] = True
+            except ObjectDoesNotExist:
+                print("There is no status for the linked task and current user, task wasn't executed by him/her")
+            print("Linked task code:" + linked_task.code)
+        except ObjectDoesNotExist:
+            print("No linked relations for task")
+        # проверяем, есть ли зависимые задачи:
+        try:
+            relation = TaskRelation.objects.get(linked_task=task)
+            dependant_task = relation.dependant_task
+            context['dependant_task'] = dependant_task
+            print("Dependant task code:" + dependant_task.code)
+        except ObjectDoesNotExist:
+            print("No dependant relations for task")
+        self.template_name = self.template_name + task.code + ".html"
+        print("Template name:" + self.template_name)
+        context['task'] = task
         try:
             status = Status.objects.get(task=task,user=user)
         except ObjectDoesNotExist:
