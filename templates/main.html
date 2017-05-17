@@ -1,17 +1,4 @@
 {% extends "base.html" %}
-{% block custom_static %}
-.thumbnail {
-    padding: 0 0 15px 0;
-    border: none;
-    border-radius: 0;
-}
-
-.thumbnail img {
-    width: 100%;
-    height: 100%;
-    margin-bottom: 10px;
-}
-{% endblock custom_static%}
 {% block title %}Test Lab Site - Главная страница{% endblock %}
 {% load static from staticfiles %}
 {% block logo %}
@@ -37,120 +24,67 @@
             {% endif %}
         </div>
     </div>
-    <ol class="breadcrumb">
+    <!--<ol class="breadcrumb">
         <li class="active">Главная</li>
-    </ol>
-    <div class="page-header">
-        <h3>Расписание тестовой лаборатории</h3>
-    </div>
+    </ol>-->
     <div class="container-fluid text-center bg-grey">
-        <h2>26 МАЯ</h2>
-        <h4>Расписание тестовой лаборатории</h4>
+        <h1 id="test">Расписание</h1>
+        <h1>26 мая</h1>
         <div class="row text-center">
             <div class="col-sm-3">
               <div class="thumbnail">
-                <img src="{% static "img/api.png" %}" alt="API">
+                  <span class="label label-success">IN PROGRESS</span>
+                  <p>10:00 - 12:00</p>
+                  {% with theme="API" %}
+                        <a href="{% url 'tasks:theme_tasks' theme %}">
+                            <img src="{% static "img/api.png" %}" alt="API">
+                        </a>
+                  {% endwith %}
                 <p><strong>API</strong></p>
                 <p>Тестирование и HTTP</p>
               </div>
             </div>
             <div class="col-sm-3">
               <div class="thumbnail">
-                <img src="{% static "img/iot.png" %}" alt="IoT">
+                <span class="label label-default">COMING SOON</span>
+                  <p>12:00 - 14:00</p>
+                {% with theme="IOT" %}
+                        <a href="{% url 'tasks:theme_tasks' theme %}">
+                            <img src="{% static "img/iot.png" %}" alt="IoT">
+                        </a>
+                {% endwith %}
                 <p><strong>Internet of Things</strong></p>
                 <p>Скоро заполонит</p>
               </div>
             </div>
             <div class="col-sm-3">
               <div class="thumbnail">
-                <img src="{% static "img/et.png" %}">
+                  <span class="label label-default">COMING SOON</span>
+                  <p>14:00 - 16:00</p>
+                  {% with theme="ET" %}
+                        <a href="{% url 'tasks:theme_tasks' theme %}">
+                            <img src="{% static "img/et.png" %}">
+                        </a>
+                {% endwith %}
                 <p><strong>ИТ</strong></p>
                 <p>Старое доброе исследовательское тестирование</p>
               </div>
             </div>
             <div class="col-sm-3">
               <div class="thumbnail">
-                <img src="{% static "img/games.png" %}" alt="Games">
+                  <span class="label label-default">COMING SOON</span>
+                  <p>16:00 - 18:00</p>
+                  {% with theme="games" %}
+                        <a href="{% url 'tasks:theme_tasks' theme %}">
+                            <img src="{% static "img/games.png" %}" alt="Games">
+                        </a>
+                {% endwith %}
                 <p><strong>Игры</strong></p>
                 <p>Let's play?!</p>
               </div>
             </div>
         </div>
-    <div class="row">
-        <b>26 мая</b>
     </div>
-    <div class="row">
-        <div class="col-xs-6 col-md-3">
-            10:00 - 12:00
-            {% with theme="API" %}
-                <a href="{% url 'tasks:theme_tasks' theme %}" class="thumbnail">
-                    <img src="{% static "img/api.png" %}">
-                </a>
-            {% endwith %}
-        </div>
-        <div class="col-xs-6 col-md-3">
-            12:00 - 14:00
-            {% with theme="IOT" %}
-            <a href="{% url 'tasks:theme_tasks' theme %}" class="thumbnail">
-                <img src="{% static "img/iot.png" %}">
-            </a>
-            {% endwith %}
-        </div>
-        <div class="col-xs-6 col-md-3">
-            14:00 - 16:00
-            {% with theme="ET" %}
-            <a href="{% url 'tasks:theme_tasks' theme %}" class="thumbnail">
-                <img src="{% static "img/et.png" %}">
-            </a>
-            {% endwith %}
-        </div>
-        <div class="col-xs-6 col-md-3">
-            16:00 - 18:00
-            {% with theme="games" %}
-            <a href="{% url 'tasks:theme_tasks' theme %}" class="thumbnail">
-                <img src="{% static "img/games.png" %}">
-            </a>
-            {% endwith %}
-        </div>
-    </div>
-    <div class="row">
-        <b>27 мая</b>
-        </div>
-    <div class="row">
-        <div class="col-xs-6 col-md-3">
-            10:00 - 12:00
-            {% with theme="API" %}
-                <a href="{% url 'tasks:theme_tasks' theme %}" class="thumbnail">
-                    <img src="{% static "img/api.png" %}">
-                </a>
-            {% endwith %}
-        </div>
-        <div class="col-xs-6 col-md-3">
-            12:00 - 14:00
-            {% with theme="IOT" %}
-            <a href="{% url 'tasks:theme_tasks' theme %}" class="thumbnail">
-                <img src="{% static "img/iot.png" %}">
-            </a>
-            {% endwith %}
-        </div>
-        <div class="col-xs-6 col-md-3">
-            14:00 - 16:00
-            {% with theme="ET" %}
-            <a href="{% url 'tasks:theme_tasks' theme %}" class="thumbnail">
-                <img src="{% static "img/et.png" %}">
-            </a>
-            {% endwith %}
-        </div>
-        <div class="col-xs-6 col-md-3">
-            16:00 - 18:00
-            {% with theme="games" %}
-            <a href="{% url 'tasks:theme_tasks' theme %}" class="thumbnail">
-                <img src="{% static "img/games.png" %}">
-            </a>
-            {% endwith %}
-        </div>
-    </div>
-</div>
 </div>
 {% endblock %}
 

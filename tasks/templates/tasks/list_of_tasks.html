@@ -10,28 +10,33 @@
 		<li class="active">{{ theme }}</li>
     </ol>
     {% if theme %}
-		<div class="page-header">
-        	<h3>Задания по теме {{ theme }}</h3>
-    	</div>
-		{% if tasks_list %}
-			<ul>Задания:
-			{% for task in tasks_list %}
-				<li><a href="{% url 'tasks:task' task.id %}">{{ task.title }}</a></li>
-			{% endfor %}
-			</ul>
-		{% else %}
-			<p>Нет задач по теме {{ theme }}.</p>
-		{% endif %}
+		<div class="list-group">
+  			{% if tasks_list %}
+				{% for task in tasks_list %}
+					<a href="{% url 'tasks:task' task.id %}" class="list-group-item">
+						<h4 class="list-group-item-heading">
+							<span class="label label-success">{{ task.code }}</span>
+							{{ task.title }}
+							<span class="glyphicon glyphicon-ok text-right" id="done_indicator" aria-hidden="true"></span>
+						</h4>
+						<p class="list-group-item-text">{{ task.description }}</p>
+					</a>
+				{% endfor %}
+			{% else %}
+				<p>Нет задач по теме {{ theme }} или задачи пока не активны.</p>
+			{% endif %}
+		</div>
 	{% else %}
-		<div class="page-header">
-        	<h3>Задания</h3>
-    	</div>
 		{% if tasks_list %}
-			<ul>Задания:
 			{% for task in tasks_list %}
-				<li><a href="{% url 'tasks:task' task.id %}">{{ task.title }}</a></li>
+					<a href="{% url 'tasks:task' task.id %}" class="list-group-item">
+						<h4 class="list-group-item-heading">
+							<span class="label label-success">{{ task.code }}</span>
+							{{ task.title }}
+						</h4>
+						<p class="list-group-item-text">{{ task.description }}</p>
+					</a>
 			{% endfor %}
-			</ul>
 		{% else %}
 			<p>Нет задач в списке.</p>
 		{% endif %}

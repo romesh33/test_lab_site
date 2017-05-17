@@ -12,3 +12,13 @@
 {
     align: right;
 }
+
+#task_help
+{
+    font-size: 10px;
+}
+
+#done_indicator
+{
+    color: Green;
+}
