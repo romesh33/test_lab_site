@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% load staticfiles %}
+{% block custom_static %}
+    <!-- Custom styles for this template -->
+    <link href="{% static "css/jumbotron-narrow.css" %}" rel="stylesheet">
+{% endblock custom_static %}
+
+{% block title %}Статистика{% endblock %}
+
+{% block content %}
+<div class="container">
+    {% block breadcrumb %}
+    <ol class="breadcrumb">
+        <li><a href="{% url 'main' %}">Главная</a></li>
+        <li class="active">Статистика</li>
+    </ol>
+    {% endblock %}
+</div>
+{% endblock %}

@@ -3,9 +3,6 @@
 {% load staticfiles %}
 {% block custom_static %}
     <!-- Custom styles for this template -->
-    <link href="{% static "css/jumbotron-narrow.css" %}" rel="stylesheet">
-    <link href="{% static "css/event_styles.css" %}" rel="stylesheet">
-
     <script src='{% static "js/react.js" %}'></script>
     <script src='{% static "js/react-dom.js" %}'></script>
     <!--<script src='{% static "js/require.js" %}'></script>-->
@@ -21,62 +18,100 @@
     <ol class="breadcrumb">
         <li><a href="{% url 'main' %}">Главная</a></li>
         <li><a href="{% url 'tasks:tasks' %}">Задания</a></li>
-        <li><a href="{% url 'tasks:theme_tasks' task.task_theme %}">{{ task.task_theme }}</a></li>
+        <li><a href="{% url 'tasks:theme_tasks' task.task_theme.theme_code %}">{{ task.task_theme.theme_code }}</a></li>
         <li class="active">{{ task.title }}</li>
     </ol>
     {% endblock %}
     {% block button_panel %}
-    <div id="task_help">
-        <p>Для того, чтобы увидеть шаги выполнения задания, а также информацию и подсказки, нажмите на "Начать".</p>
-        <p>Для того, чтобы приостановить выполнения задания, нажмите на "Остановить". Чтобы продолжить выполнение после остановки - нажмите "Вернуться".</p>
-        <p>Если вы считаете задание выполненным - нажмите на "Завершить". После завершения задания информация о задании остается доступной.</p>
-    </div>
-        {% if user.is_authenticated %}
-        {% if status.state == "RUNNING" %}
-            Прошло времени: {{ status.duration }}<br>
-            <a href="{% url 'tasks:stop' task.id %}">Остановить</a>
-            <a href="{% url 'tasks:finish' task.id %}">Завершить</a>
-        {% elif status.state == "IDLE" %}
-            Прошло времени: {{ status.duration }}<br>
-            {% if linked_task and linked_task_finished %}
-                <a href="{% url 'tasks:start' task.id %}">Начать</a><br>
-            {% elif linked_task and not linked_task_finished %}
-                У задачи есть связанная задача. Чтобы начать - пожалуйста, выполните связанную задачу (см. ссылку ниже).
-            {% elif not linked_task %}
-                <a href="{% url 'tasks:start' task.id %}">Начать</a><br>
-            {% endif %}
-        {% elif status.state == "STOPPED" %}
-            Прошло времени: {{ status.duration }}<br>
-            <a href="{% url 'tasks:come_back' task.id %}">Вернуться</a><br>
-            <a href="{% url 'tasks:finish' task.id %}">Завершить</a>
-        {% elif status.state == "FINISHED" %}
-            Прошло времени: {{ status.duration }}<br>
-            Поздравляем, вы завершили задание!
-            {% if dependant_task %}
-                Вам открылись задания:
-                <a href="{% url 'tasks:task' dependant_task.id %}">{{ dependant_task.code }}: {{ dependant_task.title }} </a>
-             {% endif %}
-        {% endif %}
-    {% else %}
-        <p>Вы должны авторизоваться перед тем, как начать задачу.</p>
-    {% endif %}
+        <div class="panel panel-default">
+            <div class="panel-body">
+                {% if task.task_theme.theme_status != "in_progress" %}
+                    Шаги выполнения пока не доступны, так как тема задачи неактивна.
+                    Пожалуйста дождитесь, когда тема начнется по расписанию.
+                {% else %}
+                {% if status.state == "IDLE" %}
+                    <div class="alert alert-info alert-dismissible" role="alert">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <p class="task_help"><span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span> Для того, чтобы увидеть шаги выполнения задания, а также информацию и подсказки, нажмите на "Начать".</p>
+                        <p class="task_help"><span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span> Для того, чтобы приостановить выполнения задания, нажмите на "Остановить". Чтобы продолжить выполнение после остановки - нажмите "Вернуться".</li>
+                        <p class="task_help"><span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span> Если вы считаете задание выполненным - нажмите на "Завершить". После завершения задания информация о задании остается доступной.</li>
+                    </div>
+                {% elif status.state != "FINISHED" %}
+                    <button role="button" class="btn btn-default btn-sm" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+                        <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
+                    </button>
+                    <div class="alert alert-info collapse" role="alert" id="collapseExample">
+                        <p class="task_help"><span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span> Для того, чтобы увидеть шаги выполнения задания, а также информацию и подсказки, нажмите на "Начать".</p>
+                        <p class="task_help"><span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span> Для того, чтобы приостановить выполнения задания, нажмите на "Остановить". Чтобы продолжить выполнение после остановки - нажмите "Вернуться".</li>
+                        <p class="task_help"><span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span> Если вы считаете задание выполненным - нажмите на "Завершить". После завершения задания информация о задании остается доступной.</li>
+                    </div>
+                {% endif %}
+                    <div id="task_panel">
+                    </div>
+                {% endif %}
+            </div>
+        </div>
     {% endblock %}
     {% block task_title%}
     <div class="page-header">
-            <h3>{{task.code}}: {{ task.title }}</h3>
+            <h3>{{ task.task_theme.theme_code }}-{{task.code}}: {{ task.title }}</h3>
         </div>
     {% endblock %}
     {% block task_content%}
-    {% if linked_task %}
-        <p>
-        Связанная задача: <a href="{% url 'tasks:task' linked_task.id %}">{{ linked_task.code }}: {{ linked_task.title }} </a>
-        </p>
-    {% endif %}
-    <div class="well">
-        {{ task.description }}
-    </div>
-    {% block task_information %}
-    {% endblock %}
+        {% if linked_task %}
+            <p>
+            Связанная задача: <a href="{% url 'tasks:task' linked_task.id %}">{{ linked_task.task_theme.theme_code }}-{{ linked_task.code }}: {{ linked_task.title }} </a>
+            </p>
+        {% endif %}
+        <div class="well">
+            {{ task.description }}
+        </div>
+        {% block task_information %}
+        {% endblock %}
     {% endblock %}
 </div>
 {% endblock %}
+
+{% block more_scripts %}
+    <script>
+        var task_status = "{{ status.state }}";
+        var user_is_authenticated = 0;
+        {% if user.is_authenticated %}
+            user_is_authenticated = 1;
+        {% else %}
+            user_is_authenticated = 0;
+        {% endif %}
+        var start_time = 0, comeback_time = 0;
+        {% if status.comeback_time %}
+            comeback_time = "{{ status.comeback_time.isoformat }}";
+        {% endif %}
+        {% if status.start_time %}
+            start_time = "{{ status.start_time.isoformat }}";
+        {% endif %}
+        var duration = "{{ status.duration }}";
+        var stop_link = "{% url 'tasks:stop' task.id %}";
+        var start_link = "{% url 'tasks:start' task.id %}";
+        var continue_link = "{% url 'tasks:come_back' task.id %}";
+        var finish_link = "{% url 'tasks:finish' task.id %}";
+        var linked_task = 0, linked_task_finished = 0;
+        {% if linked_task %}
+            linked_task = 1;
+        {% endif %}
+        {% if linked_task_finished %}
+            linked_task_finished = 1;
+        {% endif %}
+        var dependant_task = 0;
+        var dependant_task_link, dependant_task_code, dependant_task_title;
+        {% if dependant_task %}
+            dependant_task = 1;
+            dependant_task_link = "{% url 'tasks:task' dependant_task.id %}";
+            dependant_task_code = "{{ dependant_task.task_theme.theme_code }}" + "-" + "{{ dependant_task.code }}";
+            dependant_task_title = "{{ dependant_task.title }}";
+         {% endif %}
+    </script>
+    <script src='{% static "js/moment.js" %}'></script>
+        <script>
+            moment().format();
+    </script>
+    <script src='{% static "js/task_panel.js" %}' type="text/babel"></script>
+{% endblock more_scripts %}

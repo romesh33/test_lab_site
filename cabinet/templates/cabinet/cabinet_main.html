@@ -14,18 +14,6 @@
     </div>
     {% if user.is_authenticated %}
         Имя пользователя: {{ user.username }}<br>
-        {% if userprofile != 0 %}
-            {% if userprofile.picture != 0 %}
-                <div class="row">
-                    <img class="thumbnail img-responsive col-md-6" src="{{ userprofile.picture|cut:'test_lab_site' }}">
-                </div>
-            {% else %}
-                <b>У пользователя нет картинки профиля.</b>
-            {% endif %}
-        {% else %}
-            Профиль пользователя не создан.<br>
-        {% endif %}
-        <br>
         <a href="{% url 'cabinet:edit_profile' user.id %}">Редактировать профиль пользователя</a>
     {% endif %}
 </div>

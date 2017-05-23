@@ -3,22 +3,48 @@ from django.db import models
 from django.contrib.auth.models import User
 
 # Create your models here.
-class Task(models.Model):
-    code = models.CharField(max_length=200, default="TASK-01")
-    title = models.CharField(max_length=200, default="This is default task title")
-    description = models.TextField(max_length=2000, default="This is default task description")
-    TASK_THEMES_CHOICES = (
+class Theme(models.Model):
+    description = models.TextField(max_length=2000, default="Описание темы по умолчанию")
+    THEMES_CHOICES = (
         ('API', 'API'),
         ('ET', 'ET'),
         ('IOT', 'IOT'),
-        ('games', 'games'),
+        ('GAMES', 'GAMES'),
     )
-    task_theme = models.CharField(max_length=5,
-                                      choices=TASK_THEMES_CHOICES,
+    theme_code = models.CharField(max_length=5,
+                                      choices=THEMES_CHOICES,
                                       default='API')
+    THEMES_STATUS_CHOICES = (
+        ('in_progress', 'IN PROGRESS'),
+        ('coming_soon', 'COMING SOON'),
+        ('finished', 'FINISHED'),
+    )
+    theme_status = models.CharField(max_length=15,
+                                      choices=THEMES_STATUS_CHOICES,
+                                      default='in_progress')
+    def __str__(self):
+        return self.theme_code + ": " + self.theme_status
+
+class Task(models.Model):
+    code = models.CharField(max_length=5, default="01")
+    title = models.CharField(max_length=200, default="Заголовок задачи по умолчанию")
+    description = models.TextField(max_length=2000, default="Описание задачи по умолчанию")
+    task_theme = models.ForeignKey(Theme, related_name="task_theme", null=False)
+    TASK_LEVEL = (
+        ('simple', 'simple'),
+        ('average', 'average'),
+        ('hard', 'hard'),
+    )
+    level = models.CharField(max_length=10,
+                                      choices=TASK_LEVEL,
+                                      default='simple')
+    time = models.IntegerField(default=15)
 
     def __str__(self):
-        return self.code + ": " + self.title
+        return self.task_theme.theme_code + "-" + self.code + ": " + self.title
+
+    class Meta:
+        ordering = ["code"]
 
 class TaskRelation(models.Model):
     dependant_task = models.ForeignKey(Task, related_name="dependant_task")
@@ -48,4 +74,4 @@ class Status(models.Model):
                                       default='IDLE')
 
     def __str__(self):
-        return self.state
+        return self.user.username + " - " + self.task.task_theme.theme_code + "-" + self.task.code + " - " + self.state

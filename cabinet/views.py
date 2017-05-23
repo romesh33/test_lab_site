@@ -7,8 +7,6 @@ from django.contrib.auth.decorators import login_required
 from django.views.generic import DetailView
 from django.views.generic.edit import UpdateView
 from django.contrib.auth.models import User
-from test_lab_site.forms import UserProfileForm
-from test_lab_site.models import UserProfile
 from .forms import UserCabinetForm
 from django.core.exceptions import ObjectDoesNotExist
 
@@ -17,12 +15,7 @@ from django.core.exceptions import ObjectDoesNotExist
 @login_required()
 def viewCabinet(request, user_id):
     user = get_object_or_404(User, pk=user_id)
-    try:
-        userProfile = user.userprofile
-    except (ObjectDoesNotExist):
-        userProfile = 0
-        logging.error('ObjectDoesNotExist: There is no UserProfile for this user')
-    context = {"user": user, "userprofile": userProfile,}
+    context = {"user": user}
     return render(request, 'cabinet/cabinet_main.html', context)
 
 @login_required()
@@ -31,18 +24,10 @@ def editProfile(request, user_id):
     # this variable is needed to hide unique username error which is shown in most cases when user edits
     #   his/her profile:
     show_unique_username_error = False
-    try:
-        userProfile = user.userprofile
-    except (ObjectDoesNotExist):
-        userProfile = UserProfile()
-        userProfile.user = user
-        userProfile.save()
-        logging.error('UserProfile was absent for this user and it was created')
     if request.method == 'POST':
         # Attempt to grab information from the raw form information.
         # Note that we make use of both UserForm and UserProfileForm.
         user_form = UserCabinetForm(data=request.POST)
-        profile_form = UserProfileForm(data=request.POST)
         username_from_post = request.POST['username']
         email_from_post = request.POST['email']
 
@@ -54,14 +39,6 @@ def editProfile(request, user_id):
                 #   - in this case we are saving details for this user (except username):
                 user.email = email_from_post
                 user.save()
-                # Now sort out the userProfile.
-                #  Did the user provide a profile picture?
-                #  If so, we need to get it from the input form and put it in the UserProfile model.
-                if 'picture' in request.FILES:
-                    userProfile.picture = request.FILES['picture']
-                    userProfile.save()
-                else:
-                    logging.warning("picture wasn't found in request")
                 return HttpResponseRedirect(reverse('cabinet:view_cabinet',args=(user.id,)))
             else:
                 # in case username specified in the POST data - is not the same as logged in user -
@@ -69,18 +46,13 @@ def editProfile(request, user_id):
                 show_unique_username_error = True
                 logging.warning("User tried to change the username, but it already exists")
         else:
-            if user_form.is_valid() and profile_form.is_valid():
+            if user_form.is_valid():
                 user.username = username_from_post
                 user.email = email_from_post
                 user.save()
-                if 'picture' in request.FILES:
-                    userProfile.picture = request.FILES['picture']
-                    userProfile.save()
-                else:
-                    logging.warning("picture wasn't found in request")
                 return HttpResponseRedirect(reverse('cabinet:view_cabinet',args=(user.id,)))
             else:
-                print(user_form.errors, profile_form.errors)
+                print(user_form.errors)
     # Not a HTTP POST, so we render our form using two ModelForm instances.
     # These forms will be blank, ready for user input.
     else:
@@ -89,11 +61,7 @@ def editProfile(request, user_id):
             "username": user.username,
             "email": user.email,
         }
-        if userProfile.picture:
-            data["picture"] = userProfile.picture
         user_form = UserCabinetForm(data)
-        profile_form = UserProfileForm(data)
-    context = {"user_form": user_form, "profile_form": profile_form, "show_unique_username_error":
-        show_unique_username_error}
+    context = {"user_form": user_form, "show_unique_username_error": show_unique_username_error}
     logging.warning(show_unique_username_error)
     return render(request, 'cabinet/cabinet_edit.html', context)

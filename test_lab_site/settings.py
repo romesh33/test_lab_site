@@ -25,7 +25,8 @@ SECRET_KEY = '-8fg=d2#yspo)pstpn*mc6*!-78fhow(-l@jl*i*jb39sfhovc'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
+# ALLOWED_HOSTS = ['*.luxoft.com', '192.168.2.104','localhost', '127.0.0.1', '*']
 
 
 # Application definition

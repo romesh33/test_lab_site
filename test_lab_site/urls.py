@@ -20,7 +20,9 @@ from . import views
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^$', views.main, name='main'),
-    url(r'^register/$', views.register, name='register'),  # ADD NEW PATTERN!
+    url(r'^register/$', views.register, name='register'),
+    url(r'^about/$', views.about, name='about'),
+    url(r'^stats/$', views.stats, name='stats'),
     url(r'^cabinet/', include('cabinet.urls')),
     url(r'^tasks/', include('tasks.urls')),
     url(r'^login/$', views.user_login, name='login'),

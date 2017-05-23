@@ -1,5 +1,8 @@
 {% extends "task_base_template.html" %}
 
 {% block task_information%}
-TBD
+{% if task.task_theme.theme_status != "in_progress" %}
+{% else %}
+    Сразу все стало доступно.
+{% endif %}
 {% endblock %}

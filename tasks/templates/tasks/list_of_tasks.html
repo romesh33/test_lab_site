@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 
+{% load staticfiles %}
 {% block title %}Задания{% endblock %}
 
 {% block content %}
@@ -7,23 +8,54 @@
 	<ol class="breadcrumb">
         <li><a href="{% url 'main' %}">Главная</a></li>
         <li><a href="{% url 'tasks:tasks' %}">Задания</a></li>
-		<li class="active">{{ theme }}</li>
+		<li class="active">{{ theme.theme_code }}</li>
     </ol>
     {% if theme %}
+		<div class="well">
+            {{ theme.description }}
+		</div>
 		<div class="list-group">
   			{% if tasks_list %}
 				{% for task in tasks_list %}
 					<a href="{% url 'tasks:task' task.id %}" class="list-group-item">
 						<h4 class="list-group-item-heading">
-							<span class="label label-success">{{ task.code }}</span>
+							{% if theme.theme_status == 'in_progress' %}
+								<span class="label label-success">
+							{% else %}
+								<span class="label label-default">
+							{% endif %}
+								{{theme.theme_code}}-{{task.code}}</span>
 							{{ task.title }}
-							<span class="glyphicon glyphicon-ok text-right" id="done_indicator" aria-hidden="true"></span>
+							{% if task in finished_tasks %}
+								<span class="glyphicon glyphicon-ok text-right" id="done_indicator" aria-hidden="true"></span>
+							{% endif %}
 						</h4>
+						<p>
+						{% if task in related_tasks %}
+							{% for key,value in related_tasks.items %}
+								{% if key == task %}
+									Зависит от <span class="label label-info">{{value.task_theme.theme_code}}-{{ value.code }}</span>
+								{% endif %}
+							{% endfor %}
+						{% endif %}
+						</p>
 						<p class="list-group-item-text">{{ task.description }}</p>
+						<hr>
+						<span class="glyphicon glyphicon-time" aria-hidden="true"></span><span> {{ task.time }} минут</span>
+						{% if task.level == 'simple' %}
+							<img class="img-rounded" src='{% static "img/simple_sm.png" %}'>
+							<span>Легкий</span>
+						{% elif task.level == 'average' %}
+							<img class="img-rounded" src='{% static "img/average_sm.png" %}'>
+							<span>Средний</span>
+						{% elif task.level == 'hard' %}
+							<img class="img-rounded" src='{% static "img/hard_sm.png" %}'>
+							<span>Тяжелый</span>
+						{% endif %}
 					</a>
 				{% endfor %}
 			{% else %}
-				<p>Нет задач по теме {{ theme }} или задачи пока не активны.</p>
+				<p>Нет задач по теме {{theme.theme_code}} или задачи пока не активны.</p>
 			{% endif %}
 		</div>
 	{% else %}
@@ -31,8 +63,16 @@
 			{% for task in tasks_list %}
 					<a href="{% url 'tasks:task' task.id %}" class="list-group-item">
 						<h4 class="list-group-item-heading">
-							<span class="label label-success">{{ task.code }}</span>
+							{% if task.task_theme.theme_status == 'in_progress' %}
+								<span class="label label-success">
+							{% else %}
+								<span class="label label-default">
+							{% endif %}
+							{{ task.task_theme.theme_code }}-{{task.code}}</span>
 							{{ task.title }}
+							{% if task in finished_tasks %}
+								<span class="glyphicon glyphicon-ok text-right" id="done_indicator" aria-hidden="true"></span>
+							{% endif %}
 						</h4>
 						<p class="list-group-item-text">{{ task.description }}</p>
 					</a>

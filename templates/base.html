@@ -19,8 +19,6 @@
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
     <link href="{% static "css/ie10-viewport-bug-workaround.css" %}" rel="stylesheet">
     {% block custom_static %}
-    <!--&lt;!&ndash; Custom styles for this template &ndash;&gt;-->
-    <!--<link href="{% static "css/jumbotron-narrow.css" %}" rel="stylesheet">-->
     {% endblock custom_static %}
     <link href="{% static "css/site.css" %}" rel="stylesheet">
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
@@ -41,7 +39,7 @@
           {% block logo %}
           <div class="navbar-brand">
             <a href="{% url 'main' %}">
-                SQA DAYS-21 TEST LAB SITE
+                SQA DAYS-21
               <!--<img src="{% static "img/logo_0205_extra_small.png" %}">-->
             </a>
           </div>
@@ -50,6 +48,8 @@
         {% block navigation %}
         <div class="navbar-collapse collapse">
           <ul class="nav navbar-nav navbar-right">
+              <li class="nav"><a href="{% url 'about' %}">О нас</a></li>
+              <li class="nav"><a href="{% url 'stats' %}">Статистика</a></li>
             {% if user.is_authenticated %}
               <li class="nav"><a href="{% url 'logout' %}">Выйти</a></li>
             {% else %}

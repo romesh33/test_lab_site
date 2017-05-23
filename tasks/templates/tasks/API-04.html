@@ -1,5 +1,30 @@
 {% extends "task_base_template.html" %}
 
 {% block task_information%}
-TBD
+<p>Любопытные уже познакомились с Fiddler в задании
+<a href="{% url 'tasks:task' 1 %}">API-01.</a>
+</p>
+<p>Но повторение - это основа обучения.</p>
+<p>Давайте попробуем:
+    <ol>
+        <li>Выполнить пользовательские сценарии в TRACKS через браузер.</li>
+        <li>Проанализировать запросы и ответы через Fiddler.</li>
+        <li>Повторно отправить запросы через Fiddler.</li>
+    </ol>
+</p>
+<p>Ну и потом вам нужно будет сделать вывод - зависит ли GUI от API?</p>
+<p>Вопрос для размышления: если GUI не зависит от API, то что мы теряем / получаем - с прицелом на стратегию тестирования и тестовое покрытие?</p>
+<h3>Информация, материалы, подсказки</h3>
+<dl>
+    <dt>TRACKS API docs</dt>
+    <dd><a href="http://192.168.154.128/integrations/rest_api">http://192.168.154.128/integrations/rest_api</a></dd>
+    <dt>TRACKS API user credentials</dt>
+    <dd>По умолчанию: user/bitnami</dd>
+    <dt>Путь к Fiddler</dt>
+    <dd>TBD</dd>
+    <dt>Путь к настройкам прокси Fiddler</dt>
+    <dd>Tools -> Fiddler options: Вкладка "Connections"</dd>
+    <dt>Настройка прокси в браузере</dt>
+    <dd>Используйте FoxyProxy в Chrome, чтобы настроить браузер на порт, прослушиваемый OWASP ZAP Proxy.</dd>
+</dl>
 {% endblock %}

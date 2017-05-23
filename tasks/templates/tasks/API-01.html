@@ -1,23 +1,44 @@
 {% extends "task_base_template.html" %}
 
 {% block task_information%}
-<ol>Шаги выполнения:
-    <li>Изучить документацию TRACKS API: http://192.168.154.128/integrations/rest_api</li>
-    <li>
-        <ol>Выполнить примеры из документации при помощи curl:
-            <li>Получение контекста, todo, проекта</li>
-            <li>Создание проекта, todo, контекста</li>
-            <li>Изменение и удаление сущностей</li>
-        </ol>
-    </li>
-    <li>Изучить формат посылаемых curl HTTP запросов через прокси Fiddler</li>
-    <li>
-        <ol>Выполнить пользовательский сценарий:
-            <li>Создать проект</li>
-            <li>Создать несколько todo сущностей</li>
-            <li>Пометить одну из todo как выполненную</li>
-            <li>Изменить одну из todo активностей</li>
-        </ol>
-    </li>
-</ol>
+<p>TRACKS - open source приложение для управления делами. Это приложение использует подход GTD (getting things done) к тайм менеджменту.
+Основные идеи данного подхода:
+<ul>
+<li>Проекты - группы Задач, которые нужно выполнить.</li>
+<li>Контексты - места, где задачи должны быть выполнены (дома, на работе, на конференции SQA Days).</li>
+<li>Задачи (TODO) - имеют планируемую дату окончания, статус, другие параметры, которые помогают в управлении и анализе.</li>
+</ul>
+</p>
+<del><p>Шаги выполнения задания</p>
+</del>
+<p>Скажи тест кейсам НЕТ! :)</p>
+<p>Смысл задания - научиться отправлять несложные команды при помощи curl.</p>
+<p>Для примера вы можете использовать примеры из документации TRACKS API (ссылка ниже).</p>
+<p>Дерзайте!</p>
+<span class="glyphicon glyphicon-hand-right" aria-hidden="true"></span>
+<span>Для любопытных: попробуйте понять, как curl формирует HTTP запрос - с помощью Fiddler.</span>
+<h3>Информация, материалы, подсказки</h3>
+<dl>
+    <strong>TRACKS API docs</strong>
+    <dd><a href="http://192.168.154.128/integrations/rest_api">http://192.168.154.128/integrations/rest_api</a></dd>
+    <dt>TRACKS API user credentials</dt>
+    <dd>По умолчанию: user/bitnami</dd>
+    <dt>CURL docs</dt>
+    <dd><a href="https://curl.haxx.se/docs/">https://curl.haxx.se/docs/</a></dd>
+    <code>curl.exe --help</code>
+    <dt>Путь к curl</dt>
+    <dd>C:\Users\User\Downloads\curl-7.53.1\src\curl.exe</dd>
+    <dt>Путь к Fiddler</dt>
+    <dd>TBD</dd>
+    <dt>Путь к настройкам прокси Fiddler</dt>
+    <dd>Tools -> Fiddler options: Вкладка "Connections"</dd>
+    <dt>Примеры</dt>
+    <dd>curl <url> - GET the URL</dd>
+    <dd>curl -X <verb> <url> - issue the verb request to the URL e.g. GET, PUT, POST etc.</dd>
+    <dd>curl --version - see what version you are using</dd>
+    <dd>curl "eviltester.com?p1=a&p2=b" - GET a URL with parameters</dd>
+    <dd>curl.exe -u user:bitnami http://192.168.154.128/projects.xml --proxy localhost:8888</dd>
+    <dt>Подсказка</dt>
+    <dd>Путь к прокси можно выставить в браузере. В Chrome можно использовать FoxyProxy дополнение.</dd>
+</dl>
 {% endblock %}

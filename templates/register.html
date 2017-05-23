@@ -2,23 +2,14 @@
 
 {% block title %}Регистрация{% endblock %}
 
-{% block navigation %}
-<div class="navbar-collapse collapse">
-    <ul class="nav navbar-nav navbar-right">
-      <li class="nav active"><a href="#">Регистрация</a></li>
-      <li class="nav"><a href="{% url 'login' %}">Войти</a></li>
-    </ul>
-</div>
-{% endblock %}
-
-{% block section_title %}
-{% endblock section_title %}
-
 {% block content %}
 <div class="container">
-    <div class="page-header">
-        <h3>Регистрация</h3>
-    </div>
+    {% block breadcrumb %}
+    <ol class="breadcrumb">
+        <li><a href="{% url 'main' %}">Главная</a></li>
+        <li class="active">Регистрация</li>
+    </ol>
+    {% endblock %}
     {% if registered %}
         <div class="alert alert-success" role="alert">
             <p>Спасибо за регистрацию!</p>
