@@ -1,5 +1,30 @@
 {% extends "task_base_template.html" %}
 
 {% block task_information %}
-TBD
+<p>Итак, вы умеете создавать коллекции и запускать их через Collection Runner.</p>
+<p>Но если вы думаете об автоматическом запуске ваших коллекций - обратите внимание на консольную утилиту Newman.</p>
+Чтобы запустить уже созданную коллекцию:
+<ol>
+<li>Сделайте Export коллекции в json-файл.</li>
+<li>Другой вариант: получите ссылку на коллекцию через функцию Share.</li>
+<li>Запустите коллекцию через Newman в командной строке: <code>newman run <путь_к_вашему_json></code></li>
+    <li>Или (если у вас есть ссылка на коллекцию): <code>newman run <ссылка_на_коллекцию_полученная_через_Share></code></li>
+    <li>После успешного запуска вы можете поэкспериментировать с параметрами запуска. Например, варьировать число итераций или указывать файл с
+    переменными для запросов.</li>
+</ol>
+<p>Newman работает как NodeJS-пакет.</p>
+<p>На ноутбуках NodeJS и Newman уже установлен.</p>
+<h3>Информация, материалы, подсказки</h3>
+<dl>
+    <dt>TRACKS API docs</dt>
+    <dd><a href="http://192.168.154.128/integrations/rest_api">http://192.168.154.128/integrations/rest_api</a></dd>
+    <dt>TRACKS API user credentials</dt>
+    <dd>По умолчанию: user/bitnami</dd>
+    <dt>Newman docs</dt>
+    <dd><a href="https://www.getpostman.com/docs/newman_intro">https://www.getpostman.com/docs/newman_intro</a></dd>
+    <dt>Путь к Postman</dt>
+    <dd>Ярлык на рабочем столе</dd>
+    <dt>Путь к Newman</dt>
+    <dd>Ярлык на рабочем столе</dd>
+</dl>
 {% endblock %}

@@ -25,7 +25,7 @@
     {% block button_panel %}
         <div class="panel panel-default">
             <div class="panel-body">
-                {% if task.task_theme.theme_status != "in_progress" %}
+                {% if task.task_theme.theme_status != "in_progress" and status.state != 'FINISHED' %}
                     Шаги выполнения пока не доступны, так как тема задачи неактивна.
                     Пожалуйста дождитесь, когда тема начнется по расписанию.
                 {% else %}
@@ -66,8 +66,12 @@
         <div class="well">
             {{ task.description }}
         </div>
-        {% block task_information %}
-        {% endblock %}
+        {% if task.task_theme.theme_status == "in_progress" %}
+            {% if linked_task_finished or not linked_task %}
+                {% block task_information %}
+                {% endblock %}
+            {% endif %}
+        {% endif %}
     {% endblock %}
 </div>
 {% endblock %}

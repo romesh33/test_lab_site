@@ -12,7 +12,7 @@ from django.contrib.auth import logout
 from django.contrib.auth.decorators import login_required
 
 from .forms import UserForm
-from tasks.models import Task, Status
+from tasks.models import Task, Status, Theme
 
 import logging
 

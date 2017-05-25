@@ -40,18 +40,18 @@
 						{% endif %}
 						</p>
 						<p class="list-group-item-text">{{ task.description }}</p>
-						<hr>
+						<!--<hr>-->
 						<span class="glyphicon glyphicon-time" aria-hidden="true"></span><span> {{ task.time }} минут</span>
-						{% if task.level == 'simple' %}
-							<img class="img-rounded" src='{% static "img/simple_sm.png" %}'>
-							<span>Легкий</span>
-						{% elif task.level == 'average' %}
-							<img class="img-rounded" src='{% static "img/average_sm.png" %}'>
-							<span>Средний</span>
-						{% elif task.level == 'hard' %}
-							<img class="img-rounded" src='{% static "img/hard_sm.png" %}'>
-							<span>Тяжелый</span>
-						{% endif %}
+						<!--{% if task.level == 'simple' %}-->
+							<!--<img class="img-rounded" src='{% static "img/simple_sm.png" %}'>-->
+							<!--<span>Легкий</span>-->
+						<!--{% elif task.level == 'average' %}-->
+							<!--<img class="img-rounded" src='{% static "img/average_sm.png" %}'>-->
+							<!--<span>Средний</span>-->
+						<!--{% elif task.level == 'hard' %}-->
+							<!--<img class="img-rounded" src='{% static "img/hard_sm.png" %}'>-->
+							<!--<span>Тяжелый</span>-->
+						<!--{% endif %}-->
 					</a>
 				{% endfor %}
 			{% else %}
@@ -75,6 +75,7 @@
 							{% endif %}
 						</h4>
 						<p class="list-group-item-text">{{ task.description }}</p>
+						<span class="glyphicon glyphicon-time" aria-hidden="true"></span><span> {{ task.time }} минут</span>
 					</a>
 			{% endfor %}
 		{% else %}

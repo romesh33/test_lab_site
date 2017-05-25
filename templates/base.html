@@ -9,13 +9,13 @@
     <meta name="author" content="">
     <link rel="icon" href="favicon.ico">
 
-    <title>{% block title %}Test Lab site{% endblock title %}</title>
+    <title>{% block title %}SQA Days - 21{% endblock title %}</title>
 
 	{% load staticfiles %}
     <script src="{% static "js/react.js" %}"></script>
     <script src="{% static "js/react-dom.js" %}"></script>
     <!-- Bootstrap core CSS -->
-    <link href="{% static "css/bootstrap.min.css" %}" rel="stylesheet">
+    <link href="{% static "css/bootstrap.css" %}" rel="stylesheet">
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
     <link href="{% static "css/ie10-viewport-bug-workaround.css" %}" rel="stylesheet">
     {% block custom_static %}
@@ -38,7 +38,7 @@
                   </span></button>
           {% block logo %}
           <div class="navbar-brand">
-            <a href="{% url 'main' %}">
+            <a href="{% url 'main' %}" id="logo">
                 SQA DAYS-21
               <!--<img src="{% static "img/logo_0205_extra_small.png" %}">-->
             </a>

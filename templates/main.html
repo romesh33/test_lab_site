@@ -3,7 +3,7 @@
 {% load static from staticfiles %}
 {% block logo %}
 <div class="navbar-brand">
-<a href="#">
+<a href="#" id="logo">
     SQA DAYS-21
   <!--<img src="{% static "img/logo_0205_extra_small.png" %}">-->
 </a>
@@ -28,11 +28,11 @@
         <li class="active">Главная</li>
     </ol>-->
     <div class="container-fluid text-center bg-grey">
-        <h1 id="test">Расписание</h1>
+        <!--<h1 id="test">Расписание</h1>-->
         <h1>26 мая</h1>
         <div class="row text-center">
             <div class="col-sm-4">
-              <div class="thumbnail">
+                <div class="thumbnail">
                   <span class="label label-success">IN PROGRESS</span>
                   <p>10:00 - 12:00</p>
                   {% with theme="API" %}

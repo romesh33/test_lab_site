@@ -67,7 +67,7 @@ var TaskPanel = React.createClass({
                     else if (linked_task && !linked_task_finished)
                     {
                         return (
-                            <span>У задачи есть связанная задача. Чтобы начать - пожалуйста, выполните связанную задачу (см. ссылку ниже).</span>
+                            <span>У задачи есть связанная задача (см. ссылку ниже). Выполните, пожалуйста, сначала её.</span>
                         )
                     }
                 case 'STOPPED':
