@@ -9,7 +9,7 @@
     <meta name="author" content="">
     <link rel="icon" href="favicon.ico">
 
-    <title>{% block title %}SQA Days - 21{% endblock title %}</title>
+    <title>{% block title %}Test Camp at SQA Days{% endblock title %}</title>
 
 	{% load staticfiles %}
     <script src="{% static "js/react.js" %}"></script>
@@ -39,7 +39,7 @@
           {% block logo %}
           <div class="navbar-brand">
             <a href="{% url 'main' %}" id="logo">
-                SQA DAYS-21
+                Test Camp at SQA Days
               <!--<img src="{% static "img/logo_0205_extra_small.png" %}">-->
             </a>
           </div>
@@ -48,8 +48,8 @@
         {% block navigation %}
         <div class="navbar-collapse collapse">
           <ul class="nav navbar-nav navbar-right">
-              <li class="nav"><a href="{% url 'about' %}">О нас</a></li>
-              <li class="nav"><a href="{% url 'stats' %}">Статистика</a></li>
+              <!--<li class="nav"><a href="{% url 'about' %}">О нас</a></li>-->
+              <!--<li class="nav"><a href="{% url 'stats' %}">Статистика</a></li>-->
             {% if user.is_authenticated %}
               <li class="nav"><a href="{% url 'logout' %}">Выйти</a></li>
             {% else %}

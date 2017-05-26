@@ -10,8 +10,9 @@ class Theme(models.Model):
         ('ET', 'ET'),
         ('IOT', 'IOT'),
         ('GAMES', 'GAMES'),
+        ('HIDDEN', 'HIDDEN')
     )
-    theme_code = models.CharField(max_length=5,
+    theme_code = models.CharField(max_length=10,
                                       choices=THEMES_CHOICES,
                                       default='API')
     THEMES_STATUS_CHOICES = (

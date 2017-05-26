@@ -1,10 +1,10 @@
 {% extends "base.html" %}
-{% block title %}Test Lab Site - Главная страница{% endblock %}
+{% block title %}Test Camp - Главная страница{% endblock %}
 {% load static from staticfiles %}
 {% block logo %}
 <div class="navbar-brand">
 <a href="#" id="logo">
-    SQA DAYS-21
+    Test Camp at SQA Days
   <!--<img src="{% static "img/logo_0205_extra_small.png" %}">-->
 </a>
 </div>
@@ -37,10 +37,11 @@
                   <p>10:00 - 12:00</p>
                   {% with theme="API" %}
                         <a href="{% url 'tasks:theme_tasks' theme %}">
-                            <img src="{% static "img/api.png" %}" alt="API">
+                            <!--<img src="{% static "img/api.png" %}" alt="API">-->
+                            <div id="API">Тестирование API</div>
                         </a>
                   {% endwith %}
-                <p><strong>Тестирование API</strong></p>
+                <!--<p><strong>Тестирование API</strong></p>-->
               </div>
             </div>
             <div class="col-sm-4">
@@ -49,10 +50,11 @@
                   <p>12:00 - 14:00</p>
                 {% with theme="IOT" %}
                         <a href="{% url 'tasks:theme_tasks' theme %}">
-                            <img src="{% static "img/iot.png" %}" alt="IoT">
+                            <!--<img src="{% static "img/iot.png" %}" alt="IoT">-->
+                            <div id="IOT">Internet Of Things</div>
                         </a>
                 {% endwith %}
-                <p><strong>Internet of Things</strong></p>
+                <!--<p><strong>Internet of Things</strong></p>-->
               </div>
             </div>
             <!--<div class="col-sm-3">-->
@@ -74,10 +76,11 @@
                   <p>16:00 - 18:00</p>
                   {% with theme="GAMES" %}
                         <a href="{% url 'tasks:theme_tasks' theme %}">
-                            <img src="{% static "img/games.png" %}" alt="Games">
+                            <!--<img src="{% static "img/games.png" %}" alt="Games">-->
+                            <div id="GAMES">Игры</div>
                         </a>
                 {% endwith %}
-                <p><strong>Игры!</strong></p>
+                <!--<p><strong>Игры!</strong></p>-->
               </div>
             </div>
         </div>

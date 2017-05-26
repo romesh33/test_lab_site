@@ -47,3 +47,36 @@ div.panel-body
 {
    background-color: White;
 }
+
+div#API
+{
+   background-color: rgba(169, 68, 66, 0.83);
+   height: 200px;
+   line-height: 200px;
+   vertical-align: middle;
+   font-size: 14pt;
+   font-style: bold;
+   color: White;
+}
+
+div#IOT
+{
+   background-color: seagreen;
+   height: 200px;
+   line-height: 200px;
+   vertical-align: middle;
+   font-size: 14pt;
+   font-style: bold;
+   color: White;
+}
+
+div#GAMES
+{
+   background-color: rgba(0, 0, 255, 0.55);
+   height: 200px;
+   line-height: 200px;
+   vertical-align: middle;
+   font-size: 14pt;
+   font-style: bold;
+   color: White;
+}
