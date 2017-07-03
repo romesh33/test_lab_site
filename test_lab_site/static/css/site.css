@@ -54,7 +54,7 @@ div#API
    height: 200px;
    line-height: 200px;
    vertical-align: middle;
-   font-size: 14pt;
+   font-size: 10pt;
    font-style: bold;
    color: White;
 }
@@ -65,18 +65,18 @@ div#IOT
    height: 200px;
    line-height: 200px;
    vertical-align: middle;
-   font-size: 14pt;
+   font-size: 10pt;
    font-style: bold;
    color: White;
 }
 
 div#GAMES
 {
-   background-color: rgba(0, 0, 255, 0.55);
+   background-color: #2e4c5a;
    height: 200px;
    line-height: 200px;
    vertical-align: middle;
-   font-size: 14pt;
+   font-size: 10pt;
    font-style: bold;
    color: White;
 }

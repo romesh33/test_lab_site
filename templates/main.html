@@ -29,12 +29,25 @@
     </ol>-->
     <div class="container-fluid text-center bg-grey">
         <!--<h1 id="test">Расписание</h1>-->
-        <h1>26 мая</h1>
+        <h1>27 мая</h1>
         <div class="row text-center">
             <div class="col-sm-4">
+              <div class="thumbnail">
+                  <span class="label label-default">DONE</span>
+                  <p>11:10 - 11:55</p>
+                  {% with theme="GAMES" %}
+                        <a href="{% url 'tasks:theme_tasks' theme %}">
+                            <!--<img src="{% static "img/games.png" %}" alt="Games">-->
+                            <div id="GAMES">Игры</div>
+                        </a>
+                {% endwith %}
+                <!--<p><strong>Игры!</strong></p>-->
+              </div>
+            </div>
+            <div class="col-sm-4">
                 <div class="thumbnail">
-                  <span class="label label-success">IN PROGRESS</span>
-                  <p>10:00 - 12:00</p>
+                  <span class="label label-default">DONE</span>
+                  <p>11:55 - 12:45</p>
                   {% with theme="API" %}
                         <a href="{% url 'tasks:theme_tasks' theme %}">
                             <!--<img src="{% static "img/api.png" %}" alt="API">-->
@@ -46,8 +59,21 @@
             </div>
             <div class="col-sm-4">
               <div class="thumbnail">
+                  <span class="label label-success">IN PROGRESS</span>
+                  <p>12:45 - 13:35</p>
+                  {% with theme="GAMES" %}
+                        <a href="{% url 'tasks:theme_tasks' theme %}">
+                            <!--<img src="{% static "img/games.png" %}" alt="Games">-->
+                            <div id="GAMES">Игры</div>
+                        </a>
+                {% endwith %}
+                <!--<p><strong>Игры!</strong></p>-->
+              </div>
+            </div>
+            <div class="col-sm-6">
+              <div class="thumbnail">
                 <span class="label label-default">COMING SOON</span>
-                  <p>12:00 - 14:00</p>
+                  <p>14:30 - 15:55</p>
                 {% with theme="IOT" %}
                         <a href="{% url 'tasks:theme_tasks' theme %}">
                             <!--<img src="{% static "img/iot.png" %}" alt="IoT">-->
@@ -55,6 +81,19 @@
                         </a>
                 {% endwith %}
                 <!--<p><strong>Internet of Things</strong></p>-->
+              </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="thumbnail">
+                  <span class="label label-default">COMING SOON</span>
+                  <p>16:00 - 16:50</p>
+                  {% with theme="API" %}
+                        <a href="{% url 'tasks:theme_tasks' theme %}">
+                            <!--<img src="{% static "img/api.png" %}" alt="API">-->
+                            <div id="API">Тестирование API</div>
+                        </a>
+                  {% endwith %}
+                <!--<p><strong>Тестирование API</strong></p>-->
               </div>
             </div>
             <!--<div class="col-sm-3">-->
@@ -70,25 +109,25 @@
                 <!--<p>Старое доброе исследовательское тестирование</p>-->
               <!--</div>-->
             <!--</div>-->
-            <div class="col-sm-4">
-              <div class="thumbnail">
-                  <span class="label label-default">COMING SOON</span>
-                  <p>16:00 - 18:00</p>
-                  {% with theme="GAMES" %}
-                        <a href="{% url 'tasks:theme_tasks' theme %}">
-                            <!--<img src="{% static "img/games.png" %}" alt="Games">-->
-                            <div id="GAMES">Игры</div>
-                        </a>
-                {% endwith %}
-                <!--<p><strong>Игры!</strong></p>-->
-              </div>
-            </div>
-        </div>
-        <h1>27 мая</h1>
-        <h4>Программа формируется</h4>
-        <p class="glyphicon glyphicon glyphicon-glass" aria-hidden="true"></p>
-        <span class="glyphicon glyphicon glyphicon-music" aria-hidden="true"></span>
-        <span class="glyphicon glyphicon glyphicon-star-empty" aria-hidden="true"></span>
+            <!--<div class="col-sm-4">-->
+              <!--<div class="thumbnail">-->
+                  <!--<span class="label label-default">COMING SOON</span>-->
+                  <!--<p>16:00 - 18:00</p>-->
+                  <!--{% with theme="GAMES" %}-->
+                        <!--<a href="{% url 'tasks:theme_tasks' theme %}">-->
+                            <!--&lt;!&ndash;<img src="{% static "img/games.png" %}" alt="Games">&ndash;&gt;-->
+                            <!--<div id="GAMES">Игры</div>-->
+                        <!--</a>-->
+                <!--{% endwith %}-->
+                <!--&lt;!&ndash;<p><strong>Игры!</strong></p>&ndash;&gt;-->
+              <!--</div>-->
+            <!--</div>-->
+        <!--</div>-->
+        <!--<h1>27 мая</h1>-->
+        <!--<h4>Программа формируется</h4>-->
+        <!--<p class="glyphicon glyphicon glyphicon-glass" aria-hidden="true"></p>-->
+        <!--<span class="glyphicon glyphicon glyphicon-music" aria-hidden="true"></span>-->
+        <!--<span class="glyphicon glyphicon glyphicon-star-empty" aria-hidden="true"></span>-->
     </div>
 </div>
 {% endblock %}
