@@ -30,7 +30,7 @@ class Task(models.Model):
     code = models.CharField(max_length=5, default="01")
     title = models.CharField(max_length=200, default="Заголовок задачи по умолчанию")
     description = models.TextField(max_length=2000, default="Описание задачи по умолчанию")
-    task_theme = models.ForeignKey(Theme, related_name="task_theme", null=False)
+    task_theme = models.ForeignKey(Theme, related_name="task_theme", null=False, on_delete=models.PROTECT)
     TASK_LEVEL = (
         ('simple', 'simple'),
         ('average', 'average'),
@@ -48,8 +48,8 @@ class Task(models.Model):
         ordering = ["code"]
 
 class TaskRelation(models.Model):
-    dependant_task = models.ForeignKey(Task, related_name="dependant_task")
-    linked_task = models.ForeignKey(Task, related_name="linked_task", null=True)
+    dependant_task = models.ForeignKey(Task, related_name="dependant_task", on_delete=models.PROTECT)
+    linked_task = models.ForeignKey(Task, related_name="linked_task", null=True, on_delete=models.PROTECT)
 
     def __str__(self):
         return self.linked_task.code + ": " + self.linked_task.title + " -> " + self.dependant_task.code + ": " + self.dependant_task.title
@@ -57,8 +57,8 @@ class TaskRelation(models.Model):
 
 
 class Status(models.Model):
-    task = models.ForeignKey(Task, related_name="task")
-    user = models.ForeignKey(User, related_name="user")
+    task = models.ForeignKey(Task, related_name="task", on_delete=models.PROTECT)
+    user = models.ForeignKey(User, related_name="user", on_delete=models.PROTECT)
     start_time = models.DateTimeField('start_time', auto_now=False, null=True)
     stop_time = models.DateTimeField('stop_time', auto_now=False, null=True)
     comeback_time = models.DateTimeField('comeback_time', auto_now=False, null=True)

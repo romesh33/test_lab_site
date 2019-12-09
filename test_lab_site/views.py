@@ -1,10 +1,10 @@
 from django.http import HttpResponse
 from django.http import Http404
 from django.template import loader
-from django.shortcuts import get_object_or_404, render, render_to_response
+from django.shortcuts import get_object_or_404, render
 
 from django.template import RequestContext
-from django.core.urlresolvers import reverse
+from django.urls import reverse
 
 from django.contrib.auth import authenticate, login
 from django.http import HttpResponseRedirect, HttpResponse

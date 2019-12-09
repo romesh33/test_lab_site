@@ -1,9 +1,9 @@
 from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponseRedirect
-from django.core.urlresolvers import reverse
+from django.urls import reverse
 import logging
 import json
-import simplejson
+import json as simplejson
 from datetime import datetime, timezone
 from django.db.models import ObjectDoesNotExist
 from django.core.exceptions import MultipleObjectsReturned
