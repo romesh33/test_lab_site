@@ -26,7 +26,7 @@ def theme_tasks(request, theme):
         related_tasks[relation.dependant_task] = relation.linked_task
     context = {"tasks_list": tasks_list, "theme": theme, "related_tasks": related_tasks}
     user = request.user
-    if user.is_authenticated():
+    if user.is_authenticated:
         # определяем, выполнены ли задачи текущим юзером, если да - передаем выполненные задачи в контексте:
         finished_statuses = Status.objects.filter(state='FINISHED', user=user)
         finished_tasks = []
@@ -45,7 +45,7 @@ def tasks(request):
         related_tasks[relation.dependant_task] = relation.linked_task
     context = {"tasks_list": tasks_list, "related_tasks": related_tasks}
     user = request.user
-    if user.is_authenticated():
+    if user.is_authenticated:
         # определяем, выполнены ли задачи текущим юзером, если да - передаем выполненные задачи в контексте:
         finished_statuses = Status.objects.filter(state='FINISHED', user=user)
         finished_tasks = []
